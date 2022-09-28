@@ -1107,6 +1107,30 @@
                </xsd:complexContent>
           </xsd:complexType>
      </xsd:element>
+
+     <!-- =============================================================================== -->
+     <!-- =======================  FWUPD        PROPERTY ITEM  ========================== -->
+     <!-- =============================================================================== -->
+     <xsd:element name="fwupdhsi_item" substitutionGroup="oval-sc:item">
+          <xsd:annotation>
+               <xsd:documentation>This item stores the properties and values of fwupd.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+               <xsd:complexContent>
+                    <xsd:extension base="oval-sc:ItemType">
+                         <xsd:sequence>
+                              <xsd:element name="min_hsi" type="oval-sc:EntityItemIntType">
+                                   <xsd:annotation>
+                                        <xsd:documentation>This is the min requirement of HSI value.</xsd:documentation>
+                                   </xsd:annotation>
+                              </xsd:element>
+                         </xsd:sequence>
+                    </xsd:extension>
+               </xsd:complexContent>
+          </xsd:complexType>
+     </xsd:element>
+
+
      <!-- =============================================================================== -->
      <!-- =============================================================================== -->
      <!-- =============================================================================== -->

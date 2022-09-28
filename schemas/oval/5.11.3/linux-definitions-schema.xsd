@@ -2508,6 +2508,102 @@
                </xsd:complexContent>
           </xsd:complexType>
      </xsd:element>
+
+     <!-- =============================================================================== -->
+     <!-- =======================  FWUPD HSI score             ========================== -->
+     <!-- =============================================================================== -->
+     <xsd:element name="fwupdhsi_test" substitutionGroup="oval-def:test">
+          <xsd:annotation>
+               <xsd:documentation>Firmware security level</xsd:documentation>
+               <xsd:appinfo>
+                    <oval:element_mapping>
+                         <oval:test>fwupdhsi_test</oval:test>
+                         <oval:object>fwupdhsi_object</oval:object>
+                         <oval:state>fwupdhsi_state</oval:state>
+                         <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#linux">fwupdhsi_item</oval:item>
+                    </oval:element_mapping>
+               </xsd:appinfo>
+               <xsd:appinfo>
+                    <sch:pattern id="linux-def_fwupdhsitst">
+                         <sch:rule context="linux-def:fwupdhsi_test/linux-def:object">
+                              <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/linux-def:fwupdhsi_object/@id"><sch:value-of select="../@id"/> - the object child element of a fwupdhsi_test must reference a fwupdhsi_object</sch:assert>
+                         </sch:rule>
+                         <sch:rule context="linux-def:fwupdhsi_test/linux-def:state">
+                              <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/linux-def:fwupdhsi_state/@id"><sch:value-of select="../@id"/> - the state child element of a fwupdhsi_test must reference a fwupdhsi_state</sch:assert>
+                         </sch:rule>
+                    </sch:pattern>
+               </xsd:appinfo>
+          </xsd:annotation>
+          <xsd:complexType>
+               <xsd:complexContent>
+                    <xsd:extension base="oval-def:TestType">
+                         <xsd:sequence>
+                              <xsd:element name="object" type="oval-def:ObjectRefType" />
+                              <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                         </xsd:sequence>
+                    </xsd:extension>
+               </xsd:complexContent>
+          </xsd:complexType>
+     </xsd:element>
+     <xsd:element name="fwupdhsi_object" substitutionGroup="oval-def:object">
+          <xsd:annotation>
+               <xsd:documentation>The fwupdhsi_object element is used by a fwuphsi_test to define the specific unit and property combination to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+               <xsd:appinfo>
+                    <sch:pattern id="linux-def_fwupdhsi_object_verify_filter_state">
+                         <sch:rule context="linux-def:fwupdhsi_object//oval-def:filter">
+                              <sch:let name="parent_object" value="ancestor::linux-def:fwupdhsi_object"/>
+                              <sch:let name="parent_object_id" value="$parent_object/@id"/>
+                              <sch:let name="state_ref" value="."/>
+                              <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id=$state_ref]"/>
+                              <sch:let name="state_name" value="local-name($reffed_state)"/>
+                              <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
+                              <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#linux') and ($state_name='fwupdhsi_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
+                         </sch:rule>
+                    </sch:pattern>
+               </xsd:appinfo>
+          </xsd:annotation>
+          <xsd:complexType>
+               <xsd:complexContent>
+                    <xsd:extension base="oval-def:ObjectType">
+                         <xsd:sequence>
+                              <xsd:choice>
+                                   <xsd:element ref="oval-def:set"/>
+                                   <xsd:sequence>
+                                        <xsd:element name="min_hsi" type="oval-def:EntityObjectIntType">
+                                             <xsd:annotation>
+                                                  <xsd:documentation>This is the min requirement of HSI value.</xsd:documentation>
+                                             </xsd:annotation>
+                                        </xsd:element>
+                                        <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                   </xsd:sequence>
+                              </xsd:choice>
+                         </xsd:sequence>
+                    </xsd:extension>
+               </xsd:complexContent>
+          </xsd:complexType>
+     </xsd:element>
+     <xsd:element name="fwupdhsi_state" substitutionGroup="oval-def:state">
+          <xsd:annotation>
+               <xsd:documentation>The fwupdhsi_state element holds information about properties of a specific systemd unit. Please refer to the individual elements in the schema for more details about what each represents.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+               <xsd:complexContent>
+                    <xsd:extension base="oval-def:StateType">
+                         <xsd:sequence>
+                              <xsd:element name="evaluated_hsi" type="oval-def:EntityObjectIntType">
+                                   <xsd:annotation>
+                                        <xsd:documentation>This is the current HSI value.</xsd:documentation>
+                                   </xsd:annotation>
+                              </xsd:element>
+                         </xsd:sequence>
+                    </xsd:extension>
+               </xsd:complexContent>
+          </xsd:complexType>
+     </xsd:element>
+
+
+
+
      <!-- =============================================================================== -->
      <!-- =============================================================================== -->
      <!-- =============================================================================== -->
