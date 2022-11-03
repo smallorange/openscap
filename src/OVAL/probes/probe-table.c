@@ -131,6 +131,10 @@
 #include "unix/linux/fwupdhsi_probe.h"
 #endif
 
+//#ifdef OPENSCAP_PROBE_LINUX_FWUPDSECURITYATTR
+#include "unix/linux/fwupdsecattr_probe.h"
+//#endif
+
 #ifdef OPENSCAP_PROBE_SOLARIS_ISAINFO
 #include "unix/solaris/isainfo_probe.h"
 #endif
@@ -295,6 +299,9 @@ static const probe_table_entry_t probe_table[] = {
 #ifdef OPENSCAP_PROBE_LINUX_FWUPD
 	{OVAL_LINUX_FWUPD, NULL, fwupdhsi_probe_main, NULL, fwupdhsi_probe_offline_mode_supported},
 #endif
+//#ifdef OPENSCAP_PROBE_LINUX_FWUPDSECURITYATTR
+	{OVAL_LINUX_FWUPDSECATTR, NULL, fwupdsecattr_probe_main, NULL, fwupdsecattr_probe_offline_mode_supported},
+//#endif
 #ifdef OPENSCAP_PROBE_SOLARIS_ISAINFO
 	{OVAL_SOLARIS_ISAINFO, NULL, isainfo_probe_main, NULL, NULL},
 #endif

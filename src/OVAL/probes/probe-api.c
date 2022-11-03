@@ -436,7 +436,7 @@ SEXP_t *probe_obj_getent(const SEXP_t * obj, const char *name, uint32_t n)
 			SEXP_string_cstr_r(ent_name, buf, sizeof buf);
 			dD("1=\"%s\", 2=\"%s\", n=%u", buf, name, n);
 #endif
-
+                        //dD("ENT name %s", ent_name);
 			if (SEXP_strcmp(ent_name, name) == 0 && (--n == 0)) {
 				SEXP_free(ent_name);
 				break;
