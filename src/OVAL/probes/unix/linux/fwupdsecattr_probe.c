@@ -375,7 +375,7 @@ int fwupdsecattr_probe_main(probe_ctx *ctx, void *arg)
 			item = probe_item_create(OVAL_LINUX_FWUPDSECATTR, NULL,
 				 "security-attr", OVAL_DATATYPE_STRING, "Attribute not found",
 				 NULL);
-		probe_item_setstatus (item, SYSCHAR_STATUS_UNKNOWN);
+		probe_item_setstatus (item, SYSCHAR_STATUS_NOT_COLLECTED);
 		probe_item_collect(ctx, item);
 		goto exit;
 	}
